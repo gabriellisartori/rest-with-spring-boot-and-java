@@ -1,4 +1,4 @@
-package io.github.gabriellisartori.exception;
+package io.github.gabriellisartori.class5.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

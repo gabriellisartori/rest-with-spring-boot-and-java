@@ -1,7 +1,7 @@
-package io.github.gabriellisartori.controllers;
+package io.github.gabriellisartori.class5.controllers;
 
-import io.github.gabriellisartori.request.converters.NumberConverter;
-import io.github.gabriellisartori.services.MathService;
+import io.github.gabriellisartori.class5.request.converters.NumberConverter;
+import io.github.gabriellisartori.class5.services.MathService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

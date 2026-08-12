@@ -1,4 +1,4 @@
-package io.github.gabriellisartori.request.converters;
+package io.github.gabriellisartori.class5.request.converters;
 
 public class NumberConverter {
     public static Double convertToDouble(String strNumber)

@@ -1,6 +1,6 @@
-package io.github.gabriellisartori.controllers;
+package io.github.gabriellisartori.class4.controllers;
 
-import io.github.gabriellisartori.model.Greeting;
+import io.github.gabriellisartori.class4.model.Greeting;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

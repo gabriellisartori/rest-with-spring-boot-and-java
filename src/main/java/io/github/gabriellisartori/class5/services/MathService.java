@@ -1,4 +1,4 @@
-package io.github.gabriellisartori.services;
+package io.github.gabriellisartori.class5.services;
 
 import org.springframework.stereotype.Service;
 
