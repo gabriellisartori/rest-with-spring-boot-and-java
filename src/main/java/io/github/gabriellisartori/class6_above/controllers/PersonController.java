@@ -1,7 +1,8 @@
-package io.github.gabriellisartori.class6_7.controllers;
+package io.github.gabriellisartori.class6_above.controllers;
 
-import io.github.gabriellisartori.class6_7.model.Person;
-import io.github.gabriellisartori.class6_7.services.PersonServices;
+import io.github.gabriellisartori.class6_above.data.dto.PersonDTO;
+import io.github.gabriellisartori.class6_above.model.Person;
+import io.github.gabriellisartori.class6_above.services.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class PersonController {
     private PersonServices service;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Person> findAll() {
+    public List<PersonDTO> findAll() {
         return service.findAll();
     }
 
@@ -26,7 +27,7 @@ public class PersonController {
             value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Person findById(@PathVariable("id") Long id) {
+    public PersonDTO findById(@PathVariable("id") Long id) {
         return service.findById(id);
     }
 
@@ -34,8 +35,8 @@ public class PersonController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Person> create(@RequestBody Person person) {
-        Person createdPerson = service.create(person);
+    public ResponseEntity<PersonDTO> create(@RequestBody PersonDTO person) {
+        PersonDTO createdPerson = service.create(person);
 
         return ResponseEntity
                 .created(URI.create("/person/" + createdPerson.getId()))
@@ -46,7 +47,7 @@ public class PersonController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Person update(@RequestBody Person person) {
+    public PersonDTO update(@RequestBody PersonDTO person) {
         return service.update(person);
     }
 
