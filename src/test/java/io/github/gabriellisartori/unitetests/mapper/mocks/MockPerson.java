@@ -1,6 +1,6 @@
 package io.github.gabriellisartori.unitetests.mapper.mocks;
 
-import io.github.gabriellisartori.class6_above.data.dto.PersonDTO;
+import io.github.gabriellisartori.class6_above.data.dto.v1.PersonDTO;
 import io.github.gabriellisartori.class6_above.model.Person;
 
 import java.util.ArrayList;
