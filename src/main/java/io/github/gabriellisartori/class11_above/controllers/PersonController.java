@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+//import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -27,6 +28,15 @@ public class PersonController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public PersonDTO findById(@PathVariable("id") Long id) {
+        // Learn about custom Json serialization and filtering in Spring Boot
+        //var person = service.findById(id);
+        //person.setBirthDate(new Date());
+        //person.setPhoneNumber("+55 (11) 99999-9999");
+        //person.setPhoneNumber("");
+        //person.setLastName(null);
+        //person.setSensitiveData("Teste de dado sensível");
+        //return person;
+
         return service.findById(id);
     }
 
