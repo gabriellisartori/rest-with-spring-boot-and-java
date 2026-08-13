@@ -1,4 +1,4 @@
-package io.github.gabriellisartori.class6_above.controllers;
+package io.github.gabriellisartori.class6_10.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

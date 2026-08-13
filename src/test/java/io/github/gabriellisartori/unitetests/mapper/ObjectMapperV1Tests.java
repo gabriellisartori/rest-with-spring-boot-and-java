@@ -1,17 +1,17 @@
 package io.github.gabriellisartori.unitetests.mapper;
-import static io.github.gabriellisartori.class6_above.mapper.ObjectMapper.parseListObjects;
-import static io.github.gabriellisartori.class6_above.mapper.ObjectMapper.parseObject;
+import static io.github.gabriellisartori.class6_10.mapper.ObjectMapperV1.parseListObjects;
+import static io.github.gabriellisartori.class6_10.mapper.ObjectMapperV1.parseObject;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import io.github.gabriellisartori.class6_above.data.dto.v1.PersonDTO;
-import io.github.gabriellisartori.class6_above.model.Person;
+import io.github.gabriellisartori.class6_10.data.dto.v1.PersonDTO;
+import io.github.gabriellisartori.class6_10.model.PersonV1;
 import io.github.gabriellisartori.unitetests.mapper.mocks.MockPerson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ObjectMapperTests {
+public class ObjectMapperV1Tests {
     MockPerson inputObject;
 
     @BeforeEach
@@ -59,7 +59,7 @@ public class ObjectMapperTests {
 
     @Test
     public void parseDTOToEntityTest() {
-        Person output = parseObject(inputObject.mockDTO(), Person.class);
+        PersonV1 output = parseObject(inputObject.mockDTO(), PersonV1.class);
         assertEquals(Long.valueOf(0L), output.getId());
         assertEquals("First Name Test0", output.getFirstName());
         assertEquals("Last Name Test0", output.getLastName());
@@ -69,8 +69,8 @@ public class ObjectMapperTests {
 
     @Test
     public void parserDTOListToEntityListTest() {
-        List<Person> outputList = parseListObjects(inputObject.mockDTOList(), Person.class);
-        Person outputZero = outputList.get(0);
+        List<PersonV1> outputList = parseListObjects(inputObject.mockDTOList(), PersonV1.class);
+        PersonV1 outputZero = outputList.get(0);
 
         assertEquals(Long.valueOf(0L), outputZero.getId());
         assertEquals("First Name Test0", outputZero.getFirstName());
@@ -78,7 +78,7 @@ public class ObjectMapperTests {
         assertEquals("Address Test0", outputZero.getAddress());
         assertEquals("Male", outputZero.getGender());
 
-        Person outputSeven = outputList.get(7);
+        PersonV1 outputSeven = outputList.get(7);
 
         assertEquals(Long.valueOf(7L), outputSeven.getId());
         assertEquals("First Name Test7", outputSeven.getFirstName());
@@ -86,7 +86,7 @@ public class ObjectMapperTests {
         assertEquals("Address Test7", outputSeven.getAddress());
         assertEquals("Female", outputSeven.getGender());
 
-        Person outputTwelve = outputList.get(12);
+        PersonV1 outputTwelve = outputList.get(12);
 
         assertEquals(Long.valueOf(12L), outputTwelve.getId());
         assertEquals("First Name Test12", outputTwelve.getFirstName());

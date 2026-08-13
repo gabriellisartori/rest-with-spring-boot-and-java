@@ -1,7 +1,7 @@
 package io.github.gabriellisartori.unitetests.mapper.mocks;
 
-import io.github.gabriellisartori.class6_above.data.dto.v1.PersonDTO;
-import io.github.gabriellisartori.class6_above.model.Person;
+import io.github.gabriellisartori.class6_10.data.dto.v1.PersonDTO;
+import io.github.gabriellisartori.class6_10.model.PersonV1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MockPerson {
 
-    public Person mockEntity() {
+    public PersonV1 mockEntity() {
         return mockEntity(0);
     }
     
@@ -17,12 +17,12 @@ public class MockPerson {
         return mockDTO(0);
     }
     
-    public List<Person> mockEntityList() {
-        List<Person> persons = new ArrayList<Person>();
+    public List<PersonV1> mockEntityList() {
+        List<PersonV1> personV1s = new ArrayList<PersonV1>();
         for (int i = 0; i < 14; i++) {
-            persons.add(mockEntity(i));
+            personV1s.add(mockEntity(i));
         }
-        return persons;
+        return personV1s;
     }
 
     public List<PersonDTO> mockDTOList() {
@@ -33,14 +33,14 @@ public class MockPerson {
         return persons;
     }
     
-    public Person mockEntity(Integer number) {
-        Person person = new Person();
-        person.setAddress("Address Test" + number);
-        person.setFirstName("First Name Test" + number);
-        person.setGender(((number % 2)==0) ? "Male" : "Female");
-        person.setId(number.longValue());
-        person.setLastName("Last Name Test" + number);
-        return person;
+    public PersonV1 mockEntity(Integer number) {
+        PersonV1 personV1 = new PersonV1();
+        personV1.setAddress("Address Test" + number);
+        personV1.setFirstName("First Name Test" + number);
+        personV1.setGender(((number % 2)==0) ? "Male" : "Female");
+        personV1.setId(number.longValue());
+        personV1.setLastName("Last Name Test" + number);
+        return personV1;
     }
 
     public PersonDTO mockDTO(Integer number) {

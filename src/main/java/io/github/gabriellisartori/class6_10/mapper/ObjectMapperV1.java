@@ -1,11 +1,11 @@
-package io.github.gabriellisartori.class6_above.mapper;
+package io.github.gabriellisartori.class6_10.mapper;
 
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;
 
 import java.util.List;
 
-public class ObjectMapper {
+public class ObjectMapperV1 {
 
     private static Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 

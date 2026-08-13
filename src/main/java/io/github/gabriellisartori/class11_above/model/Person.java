@@ -1,4 +1,4 @@
-package io.github.gabriellisartori.class6_above.model;
+package io.github.gabriellisartori.class11_above.model;
 
 import jakarta.persistence.*;
 

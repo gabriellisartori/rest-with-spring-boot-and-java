@@ -1,9 +1,9 @@
-package io.github.gabriellisartori.class6_above.data.dto.v1;
+package io.github.gabriellisartori.class6_10.data.dto.v1;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-public class PersonDTO implements Serializable {
+public class PersonDTOV1 implements Serializable {
 
     private static final long serialVersionID = 1L;
 
@@ -13,7 +13,7 @@ public class PersonDTO implements Serializable {
     private String address;
     private String gender;
 
-    public PersonDTO() {
+    public PersonDTOV1() {
     }
 
     public String getLastName() {
@@ -58,7 +58,7 @@ public class PersonDTO implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof PersonDTO person)) return false;
+        if (!(o instanceof PersonDTOV1 person)) return false;
         return Objects.equals(getId(), person.getId()) && Objects.equals(getFirstName(), person.getFirstName()) && Objects.equals(getLastName(), person.getLastName()) && Objects.equals(getAddress(), person.getAddress()) && Objects.equals(getGender(), person.getGender());
     }
 
