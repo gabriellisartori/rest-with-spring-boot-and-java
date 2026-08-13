@@ -1,9 +1,12 @@
 package io.github.gabriellisartori.class6_above.services;
 
 import io.github.gabriellisartori.class6_above.controllers.TestLogController;
-import io.github.gabriellisartori.class6_above.data.dto.PersonDTO;
+import io.github.gabriellisartori.class6_above.data.dto.v1.PersonDTO;
 import static io.github.gabriellisartori.class6_above.mapper.ObjectMapper.parseListObjects;
 import static io.github.gabriellisartori.class6_above.mapper.ObjectMapper.parseObject;
+
+import io.github.gabriellisartori.class6_above.data.dto.v2.PersonDTOV2;
+import io.github.gabriellisartori.class6_above.mapper.custom.PersonMapper;
 import io.github.gabriellisartori.class6_above.model.Person;
 import io.github.gabriellisartori.class6_above.repository.PersonRepository;
 import io.github.gabriellisartori.exception.ResourceNotFoundException;
@@ -22,6 +25,9 @@ public class PersonServices {
 
     @Autowired
     PersonRepository repository;
+
+    @Autowired
+    PersonMapper converter;
 
     public List<PersonDTO> findAll() {
         logger.info("Finding all people");
@@ -44,6 +50,14 @@ public class PersonServices {
         var entity = parseObject(person, Person.class);
 
         return parseObject(repository.save(entity), PersonDTO.class);
+    }
+
+    public PersonDTOV2 createV2(PersonDTOV2 person) {
+        logger.info("Creating one PersonV2");
+
+        var entity = parseObject(person, Person.class);
+
+        return converter.convertEntityToDTO(repository.save(entity));
     }
 
     public PersonDTO update(PersonDTO person) {

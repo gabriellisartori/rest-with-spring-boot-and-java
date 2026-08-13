@@ -1,7 +1,7 @@
 package io.github.gabriellisartori.class6_above.controllers;
 
-import io.github.gabriellisartori.class6_above.data.dto.PersonDTO;
-import io.github.gabriellisartori.class6_above.model.Person;
+import io.github.gabriellisartori.class6_above.data.dto.v1.PersonDTO;
+import io.github.gabriellisartori.class6_above.data.dto.v2.PersonDTOV2;
 import io.github.gabriellisartori.class6_above.services.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -37,6 +37,19 @@ public class PersonController {
     )
     public ResponseEntity<PersonDTO> create(@RequestBody PersonDTO person) {
         PersonDTO createdPerson = service.create(person);
+
+        return ResponseEntity
+                .created(URI.create("/person/" + createdPerson.getId()))
+                .body(createdPerson);
+    }
+
+    @PostMapping(
+            value = "/v2",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<PersonDTOV2> createV2(@RequestBody PersonDTOV2 person) {
+        PersonDTOV2 createdPerson = service.createV2(person);
 
         return ResponseEntity
                 .created(URI.create("/person/" + createdPerson.getId()))
