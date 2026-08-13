@@ -1,11 +1,13 @@
-package io.github.gabriellisartori.class6.controllers;
+package io.github.gabriellisartori.class6_7.controllers;
 
-import io.github.gabriellisartori.class6.model.Person;
-import io.github.gabriellisartori.class6.services.PersonServices;
+import io.github.gabriellisartori.class6_7.model.Person;
+import io.github.gabriellisartori.class6_7.services.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -15,34 +17,32 @@ public class PersonController {
     @Autowired
     private PersonServices service;
 
-    @RequestMapping(
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Person> findAll() {
         return service.findAll();
     }
 
-    @RequestMapping(
+    @GetMapping(
             value = "/{id}",
-            method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Person findById(@PathVariable("id") String id) {
+    public Person findById(@PathVariable("id") Long id) {
         return service.findById(id);
     }
 
-    @RequestMapping(
-            method = RequestMethod.POST,
+    @PostMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Person create(@RequestBody Person person) {
-        return service.create(person);
+    public ResponseEntity<Person> create(@RequestBody Person person) {
+        Person createdPerson = service.create(person);
+
+        return ResponseEntity
+                .created(URI.create("/person/" + createdPerson.getId()))
+                .body(createdPerson);
     }
 
-    @RequestMapping(
-            method = RequestMethod.PUT,
+    @PutMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -50,12 +50,11 @@ public class PersonController {
         return service.update(person);
     }
 
-    @RequestMapping(
-            value = "/{id}",
-            method = RequestMethod.DELETE
-    )
-    public void delete(@PathVariable("id") String id) {
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         service.delete(id);
+
+        return ResponseEntity.noContent().build();
     }
 
 }
