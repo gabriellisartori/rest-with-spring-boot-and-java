@@ -1,6 +1,6 @@
 package io.github.gabriellisartori.unitetests.mapper.mocks;
 
-import io.github.gabriellisartori.class6_10.data.dto.v1.PersonDTO;
+import io.github.gabriellisartori.class6_10.data.dto.v1.PersonDTOV1;
 import io.github.gabriellisartori.class6_10.model.PersonV1;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class MockPerson {
         return mockEntity(0);
     }
     
-    public PersonDTO mockDTO() {
+    public PersonDTOV1 mockDTO() {
         return mockDTO(0);
     }
     
@@ -25,8 +25,8 @@ public class MockPerson {
         return personV1s;
     }
 
-    public List<PersonDTO> mockDTOList() {
-        List<PersonDTO> persons = new ArrayList<>();
+    public List<PersonDTOV1> mockDTOList() {
+        List<PersonDTOV1> persons = new ArrayList<>();
         for (int i = 0; i < 14; i++) {
             persons.add(mockDTO(i));
         }
@@ -43,8 +43,8 @@ public class MockPerson {
         return personV1;
     }
 
-    public PersonDTO mockDTO(Integer number) {
-        PersonDTO person = new PersonDTO();
+    public PersonDTOV1 mockDTO(Integer number) {
+        PersonDTOV1 person = new PersonDTOV1();
         person.setAddress("Address Test" + number);
         person.setFirstName("First Name Test" + number);
         person.setGender(((number % 2)==0) ? "Male" : "Female");
