@@ -1,6 +1,7 @@
 package io.github.gabriellisartori.exception.handler;
 
 import io.github.gabriellisartori.exception.ExceptionResponse;
+import io.github.gabriellisartori.exception.RequiredObjectIsNullException;
 import io.github.gabriellisartori.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler 
     }
 
     @ExceptionHandler(UnsupportedOperationException.class)
-    public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions (Exception ex, WebRequest request) {
+    public final ResponseEntity<ExceptionResponse> handleBadRequestOperationExceptions (Exception ex, WebRequest request) {
         ExceptionResponse response = new ExceptionResponse(
                 new Date(),
                 ex.getMessage(),
@@ -47,5 +48,16 @@ public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler 
         );
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(RequiredObjectIsNullException.class)
+    public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions (Exception ex, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }

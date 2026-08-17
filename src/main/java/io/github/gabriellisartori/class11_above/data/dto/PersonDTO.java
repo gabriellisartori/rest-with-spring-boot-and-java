@@ -12,12 +12,14 @@ package io.github.gabriellisartori.class11_above.data.dto;
 //import io.github.gabriellisartori.class11_above.serializer.GenderSerializer;
 //import java.util.Date;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 //@JsonPropertyOrder({"id", "first_name", "last_name", "gender", "address"})
 //@JsonFilter("PersonFilter")
-public class PersonDTO implements Serializable {
+public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable {
 
     private static final long serialVersionID = 1L;
 
