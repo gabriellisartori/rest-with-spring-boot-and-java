@@ -17,3 +17,7 @@ logging:
   level:
     #root: WARN
     io.github.gabriellisartori: DEBUG
+spring-doc:
+  paths-to-match: /api/**/v1/**
+  swagger-ui:
+    use-root-path: true

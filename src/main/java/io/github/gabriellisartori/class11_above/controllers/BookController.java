@@ -1,8 +1,8 @@
 package io.github.gabriellisartori.class11_above.controllers;
 
-import io.github.gabriellisartori.class11_above.controllers.docs.PersonControllerDocs;
-import io.github.gabriellisartori.class11_above.data.dto.PersonDTO;
-import io.github.gabriellisartori.services.PersonServices;
+import io.github.gabriellisartori.class11_above.controllers.docs.BookControllerDocs;
+import io.github.gabriellisartori.class11_above.data.dto.BookDTO;
+import io.github.gabriellisartori.services.BookServices;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -10,25 +10,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-//import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/person/v1")
-@Tag(name = "People", description = "Endpoints for managing people")
-public class PersonController implements PersonControllerDocs {
+@RequestMapping("api/book/v1")
+@Tag(name = "Books", description = "Endpoints for managing books")
+public class BookController implements BookControllerDocs {
 
     @Autowired
-    private PersonServices service;
+    private BookServices service;
 
     @GetMapping(produces = {
             MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE,
             MediaType.APPLICATION_YAML_VALUE
     })
-
     @Override
-    public List<PersonDTO> findAll() {
+    public List<BookDTO> findAll() {
         return service.findAll();
     }
 
@@ -40,17 +38,8 @@ public class PersonController implements PersonControllerDocs {
                     MediaType.APPLICATION_YAML_VALUE
             }
     )
-
     @Override
-    public PersonDTO findById(@PathVariable("id") Long id) {
-        // Learn about custom Json serialization and filtering in Spring Boot
-        //var person = service.findById(id);
-        //person.setBirthDate(new Date());
-        //person.setPhoneNumber("+55 (11) 99999-9999");
-        //person.setPhoneNumber("");
-        //person.setLastName(null);
-        //person.setSensitiveData("Teste de dado sensível");
-        //return person;
+    public BookDTO findById(@PathVariable("id") Long id) {
 
         return service.findById(id);
     }
@@ -67,14 +56,13 @@ public class PersonController implements PersonControllerDocs {
                     MediaType.APPLICATION_YAML_VALUE
             }
     )
-
     @Override
-    public ResponseEntity<PersonDTO> create(@RequestBody PersonDTO person) {
-        PersonDTO createdPerson = service.create(person);
+    public ResponseEntity<BookDTO> create(@RequestBody BookDTO book) {
+        BookDTO createdBook = service.create(book);
 
         return ResponseEntity
-                .created(URI.create("/person/" + createdPerson.getId()))
-                .body(createdPerson);
+                .created(URI.create("/book/" + createdBook.getId()))
+                .body(createdBook);
     }
 
     @PutMapping(
@@ -90,8 +78,8 @@ public class PersonController implements PersonControllerDocs {
             }
     )
     @Override
-    public PersonDTO update(@RequestBody PersonDTO person) {
-        return service.update(person);
+    public BookDTO update(@RequestBody BookDTO book) {
+        return service.update(book);
     }
 
     @DeleteMapping(value = "/{id}")

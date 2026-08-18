@@ -1,4 +1,4 @@
-package io.github.gabriellisartori.class11_above.services;
+package io.github.gabriellisartori.services;
 
 import io.github.gabriellisartori.class11_above.data.dto.PersonDTO;
 import io.github.gabriellisartori.class11_above.model.Person;
