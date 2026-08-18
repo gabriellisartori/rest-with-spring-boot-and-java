@@ -1,7 +1,9 @@
 package io.github.gabriellisartori.class11_above.controllers;
 
+import io.github.gabriellisartori.class11_above.controllers.docs.PersonControllerDocs;
 import io.github.gabriellisartori.class11_above.data.dto.PersonDTO;
-import io.github.gabriellisartori.class11_above.services.PersonServices;
+import io.github.gabriellisartori.services.PersonServices;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/person/v1")
-public class PersonController {
+@Tag(name = "People", description = "Endpoints for managing people")
+public class PersonController implements PersonControllerDocs {
 
     @Autowired
     private PersonServices service;
@@ -23,6 +26,8 @@ public class PersonController {
             MediaType.APPLICATION_XML_VALUE,
             MediaType.APPLICATION_YAML_VALUE
     })
+
+    @Override
     public List<PersonDTO> findAll() {
         return service.findAll();
     }
@@ -35,6 +40,8 @@ public class PersonController {
                     MediaType.APPLICATION_YAML_VALUE
             }
     )
+
+    @Override
     public PersonDTO findById(@PathVariable("id") Long id) {
         // Learn about custom Json serialization and filtering in Spring Boot
         //var person = service.findById(id);
@@ -60,6 +67,8 @@ public class PersonController {
                     MediaType.APPLICATION_YAML_VALUE
             }
     )
+
+    @Override
     public ResponseEntity<PersonDTO> create(@RequestBody PersonDTO person) {
         PersonDTO createdPerson = service.create(person);
 
@@ -80,15 +89,16 @@ public class PersonController {
                     MediaType.APPLICATION_YAML_VALUE
             }
     )
+    @Override
     public PersonDTO update(@RequestBody PersonDTO person) {
         return service.update(person);
     }
 
     @DeleteMapping(value = "/{id}")
+    @Override
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         service.delete(id);
 
         return ResponseEntity.noContent().build();
     }
-
 }
