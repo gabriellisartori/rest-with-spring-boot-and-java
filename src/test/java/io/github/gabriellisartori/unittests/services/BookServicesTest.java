@@ -1,10 +1,11 @@
-package io.github.gabriellisartori.services;
+package io.github.gabriellisartori.unittests.services;
 
 import io.github.gabriellisartori.class11_above.data.dto.BookDTO;
 import io.github.gabriellisartori.class11_above.model.Book;
 import io.github.gabriellisartori.class11_above.repository.BookRepository;
 import io.github.gabriellisartori.exception.RequiredObjectIsNullException;
-import io.github.gabriellisartori.unitetests.mapper.mocks.MockBook;
+import io.github.gabriellisartori.services.BookServices;
+import io.github.gabriellisartori.unittests.mapper.mocks.MockBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
