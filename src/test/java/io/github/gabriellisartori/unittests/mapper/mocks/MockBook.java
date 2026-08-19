@@ -1,4 +1,4 @@
-package io.github.gabriellisartori.unitetests.mapper.mocks;
+package io.github.gabriellisartori.unittests.mapper.mocks;
 
 import io.github.gabriellisartori.class11_above.data.dto.BookDTO;
 import io.github.gabriellisartori.class11_above.model.Book;
