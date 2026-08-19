@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `rest_with_spring_boot_java`.`person` (
+CREATE TABLE `person` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(80) NOT NULL,
   `last_name` VARCHAR(80) NOT NULL,
