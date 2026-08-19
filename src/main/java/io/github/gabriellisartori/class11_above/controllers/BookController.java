@@ -2,7 +2,7 @@ package io.github.gabriellisartori.class11_above.controllers;
 
 import io.github.gabriellisartori.class11_above.controllers.docs.BookControllerDocs;
 import io.github.gabriellisartori.class11_above.data.dto.BookDTO;
-import io.github.gabriellisartori.services.BookServices;
+import io.github.gabriellisartori.class11_above.services.services.BookServices;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

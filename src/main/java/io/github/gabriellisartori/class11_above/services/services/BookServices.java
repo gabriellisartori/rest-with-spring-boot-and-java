@@ -1,4 +1,4 @@
-package io.github.gabriellisartori.services;
+package io.github.gabriellisartori.class11_above.services.services;
 
 import io.github.gabriellisartori.class11_above.controllers.BookController;
 import io.github.gabriellisartori.class11_above.data.dto.BookDTO;

@@ -2,7 +2,7 @@ package io.github.gabriellisartori.class11_above.controllers;
 
 import io.github.gabriellisartori.class11_above.controllers.docs.PersonControllerDocs;
 import io.github.gabriellisartori.class11_above.data.dto.PersonDTO;
-import io.github.gabriellisartori.services.PersonServices;
+import io.github.gabriellisartori.class11_above.services.services.PersonServices;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -13,6 +13,7 @@ import java.net.URI;
 //import java.util.Date;
 import java.util.List;
 
+//@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("api/person/v1")
 @Tag(name = "People", description = "Endpoints for managing people")
@@ -41,6 +42,7 @@ public class PersonController implements PersonControllerDocs {
             }
     )
 
+    //@CrossOrigin(origins = "http://localhost:8080")
     @Override
     public PersonDTO findById(@PathVariable("id") Long id) {
         // Learn about custom Json serialization and filtering in Spring Boot
@@ -68,6 +70,7 @@ public class PersonController implements PersonControllerDocs {
             }
     )
 
+    //@CrossOrigin(origins = {"http://localhost:8080", "https://www.teste.com"})
     @Override
     public ResponseEntity<PersonDTO> create(@RequestBody PersonDTO person) {
         PersonDTO createdPerson = service.create(person);
