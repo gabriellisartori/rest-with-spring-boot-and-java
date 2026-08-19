@@ -4,7 +4,7 @@ import io.github.gabriellisartori.class11_above.data.dto.PersonDTO;
 import io.github.gabriellisartori.class11_above.model.Person;
 import io.github.gabriellisartori.class11_above.repository.PersonRepository;
 import io.github.gabriellisartori.exception.RequiredObjectIsNullException;
-import io.github.gabriellisartori.services.PersonServices;
+import io.github.gabriellisartori.class11_above.services.services.PersonServices;
 import io.github.gabriellisartori.unittests.mapper.mocks.MockPerson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
