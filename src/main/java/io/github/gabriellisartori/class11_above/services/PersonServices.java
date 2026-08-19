@@ -1,4 +1,4 @@
-package io.github.gabriellisartori.class11_above.services.services;
+package io.github.gabriellisartori.class11_above.services;
 
 import io.github.gabriellisartori.class11_above.controllers.PersonController;
 import io.github.gabriellisartori.class11_above.data.dto.PersonDTO;
@@ -7,6 +7,7 @@ import io.github.gabriellisartori.class11_above.repository.PersonRepository;
 import io.github.gabriellisartori.class6_10.controllers.TestLogController;
 import io.github.gabriellisartori.exception.RequiredObjectIsNullException;
 import io.github.gabriellisartori.exception.ResourceNotFoundException;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,11 +98,28 @@ public class PersonServices {
         repository.delete(entity);
     }
 
+    @Transactional
+    public PersonDTO disablePerson(Long id) {
+        logger.info("Disabling one Person");
+
+        repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No records found for this id"));
+
+        repository.disablePerson(id);
+
+        var entity = repository.findById(id).get();
+        var dto = parseObject(entity, PersonDTO.class);
+        addHateoasLink(dto);
+
+        return dto;
+    }
+
     private void addHateoasLink(PersonDTO dto) {
         dto.add(linkTo(methodOn(PersonController.class).findById(dto.getId())).withSelfRel().withType("GET"));
-        dto.add(linkTo(methodOn(PersonController.class).delete(dto.getId())).withRel("delete").withType("DELETE"));
         dto.add(linkTo(methodOn(PersonController.class).findAll()).withRel("findAll").withType("GET"));
         dto.add(linkTo(methodOn(PersonController.class).create(dto)).withRel("create").withType("POST"));
         dto.add(linkTo(methodOn(PersonController.class).update(dto)).withRel("update").withType("PUT"));
+        dto.add(linkTo(methodOn(PersonController.class).disablePerson(dto.getId())).withRel("disable").withType("PATCH"));
+        dto.add(linkTo(methodOn(PersonController.class).delete(dto.getId())).withRel("delete").withType("DELETE"));
     }
 }
