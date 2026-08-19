@@ -4,7 +4,7 @@ import io.github.gabriellisartori.class11_above.data.dto.BookDTO;
 import io.github.gabriellisartori.class11_above.model.Book;
 import io.github.gabriellisartori.class11_above.repository.BookRepository;
 import io.github.gabriellisartori.exception.RequiredObjectIsNullException;
-import io.github.gabriellisartori.class11_above.services.services.BookServices;
+import io.github.gabriellisartori.class11_above.services.BookServices;
 import io.github.gabriellisartori.unittests.mapper.mocks.MockBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
