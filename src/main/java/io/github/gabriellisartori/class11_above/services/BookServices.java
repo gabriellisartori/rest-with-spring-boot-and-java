@@ -2,6 +2,7 @@ package io.github.gabriellisartori.class11_above.services;
 
 import io.github.gabriellisartori.class11_above.controllers.BookController;
 import io.github.gabriellisartori.class11_above.data.dto.BookDTO;
+import io.github.gabriellisartori.class11_above.mapper.ObjectMapper;
 import io.github.gabriellisartori.class11_above.model.Book;
 import io.github.gabriellisartori.class11_above.repository.BookRepository;
 import io.github.gabriellisartori.class6_10.controllers.TestLogController;
@@ -10,11 +11,14 @@ import io.github.gabriellisartori.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.PagedModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
-import static io.github.gabriellisartori.class6_10.mapper.ObjectMapperV1.parseListObjects;
 import static io.github.gabriellisartori.class6_10.mapper.ObjectMapperV1.parseObject;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -26,14 +30,30 @@ public class BookServices {
     @Autowired
     BookRepository repository;
 
-    public List<BookDTO> findAll() {
+    @Autowired
+    PagedResourcesAssembler<BookDTO> assembler;
+
+    public PagedModel<EntityModel<BookDTO>> findAll(
+            Pageable pageable
+    ) {
         logger.info("Finding all books");
 
-        var books = parseListObjects(repository.findAll(), BookDTO.class);
+        var books = repository.findAll(pageable);
 
-        books.forEach(this::addHateoasLink);
+        var booksWithLinks = books.map(book -> {
+            var dto = ObjectMapper.parseObject(book, BookDTO.class);
+            addHateoasLink(dto);
+            return dto;
+        });
 
-        return books;
+        Link findAllLink = WebMvcLinkBuilder
+                .linkTo(
+                        WebMvcLinkBuilder
+                                .methodOn(BookController.class)
+                                .findAll(pageable.getPageNumber(), pageable.getPageSize(), String.valueOf(pageable.getSort()))
+                ).withSelfRel();
+
+        return assembler.toModel(booksWithLinks, findAllLink);
     }
 
     public BookDTO findById(Long id) {
@@ -99,7 +119,7 @@ public class BookServices {
     private void addHateoasLink(BookDTO dto) {
         dto.add(linkTo(methodOn(BookController.class).findById(dto.getId())).withSelfRel().withType("GET"));
         dto.add(linkTo(methodOn(BookController.class).delete(dto.getId())).withRel("delete").withType("DELETE"));
-        dto.add(linkTo(methodOn(BookController.class).findAll()).withRel("findAll").withType("GET"));
+        dto.add(linkTo(methodOn(BookController.class).findAll(1, 12, "asc")).withRel("findAll").withType("GET"));
         dto.add(linkTo(methodOn(BookController.class).create(dto)).withRel("create").withType("POST"));
         dto.add(linkTo(methodOn(BookController.class).update(dto)).withRel("update").withType("PUT"));
     }
