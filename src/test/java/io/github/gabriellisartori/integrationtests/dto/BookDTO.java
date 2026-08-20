@@ -1,14 +1,13 @@
-package io.github.gabriellisartori.class11_above.data.dto;
+package io.github.gabriellisartori.integrationtests.dto;
 
-import org.springframework.hateoas.RepresentationModel;
-import org.springframework.hateoas.server.core.Relation;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-@Relation(collectionRelation = "books")
-public class BookDTO extends RepresentationModel<BookDTO> implements Serializable {
+@XmlRootElement
+public class BookDTO implements Serializable {
 
     private static final long serialVersionID = 1L;
 
