@@ -2,18 +2,23 @@ package io.github.gabriellisartori.class11_above.controllers;
 
 import io.github.gabriellisartori.class11_above.controllers.docs.PersonControllerDocs;
 import io.github.gabriellisartori.class11_above.data.dto.PersonDTO;
+import io.github.gabriellisartori.class11_above.file.exporter.MediaTypes;
 import io.github.gabriellisartori.class11_above.services.PersonServices;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 //import java.util.Date;
@@ -64,6 +69,36 @@ public class PersonController implements PersonControllerDocs {
     }
 
     @GetMapping(
+            value = "/exportPage",
+            produces = {
+                    MediaTypes.APPLICATION_XLSX_VALUE,
+                    MediaTypes.APPLICATION_CSV_VALUE
+            })
+    @Override
+    public ResponseEntity<Resource> exportPage(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "12") Integer size,
+            @RequestParam(value = "direction", defaultValue = "asc") String direction,
+            HttpServletRequest request
+    ) {
+        var sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, "firstName"));
+
+        String acceptHeader = request.getHeader(HttpHeaders.ACCEPT);
+
+        Resource file = service.exportPape(pageable, acceptHeader);
+        var contentType = acceptHeader != null ? acceptHeader : "application/octet-stream";
+        var fileExtension = MediaTypes.APPLICATION_XLSX_VALUE.equalsIgnoreCase(acceptHeader) ? ".xlsx" : ".csv";
+        var fileName = "people_exported." + fileExtension;
+
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; fileName=\"" + fileName + "\"")
+                .body(file);
+    }
+
+    @GetMapping(
             value = "/{id}",
             produces = {
                     MediaType.APPLICATION_JSON_VALUE,
@@ -108,6 +143,19 @@ public class PersonController implements PersonControllerDocs {
         return ResponseEntity
                 .created(URI.create("/person/" + createdPerson.getId()))
                 .body(createdPerson);
+    }
+
+    @PostMapping(
+            value = "/massCreation",
+            produces = {
+                    MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_YAML_VALUE
+            }
+    )
+    @Override
+    public List<PersonDTO> massCreation(@RequestParam("file") MultipartFile file) {
+        return service.massCreation(file);
     }
 
     @PutMapping(
