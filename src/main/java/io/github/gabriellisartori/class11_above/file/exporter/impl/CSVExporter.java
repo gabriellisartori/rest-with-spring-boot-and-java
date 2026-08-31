@@ -1,7 +1,7 @@
 package io.github.gabriellisartori.class11_above.file.exporter.impl;
 
 import io.github.gabriellisartori.class11_above.data.dto.PersonDTO;
-import io.github.gabriellisartori.class11_above.file.exporter.contract.FileExporter;
+import io.github.gabriellisartori.class11_above.file.exporter.contract.PersonExporter;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.springframework.core.io.ByteArrayResource;
@@ -14,10 +14,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Component
-public class CSVExporter implements FileExporter {
+public class CSVExporter implements PersonExporter {
 
     @Override
-    public Resource exportFile(List<PersonDTO> people) throws Exception {
+    public Resource exportPeople(List<PersonDTO> people) throws Exception {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         OutputStreamWriter writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
@@ -42,5 +42,10 @@ public class CSVExporter implements FileExporter {
         }
 
         return new ByteArrayResource(outputStream.toByteArray());
+    }
+
+    @Override
+    public Resource exportPerson(PersonDTO person) throws Exception {
+        return null;
     }
 }

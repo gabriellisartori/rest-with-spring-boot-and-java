@@ -1,7 +1,7 @@
 package io.github.gabriellisartori.class11_above.file.exporter.impl;
 
 import io.github.gabriellisartori.class11_above.data.dto.PersonDTO;
-import io.github.gabriellisartori.class11_above.file.exporter.contract.FileExporter;
+import io.github.gabriellisartori.class11_above.file.exporter.contract.PersonExporter;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.core.io.ByteArrayResource;
@@ -12,10 +12,10 @@ import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 @Component
-public class XLSXExporter implements FileExporter {
+public class XLSXExporter implements PersonExporter {
 
     @Override
-    public Resource exportFile(List<PersonDTO> people) throws Exception {
+    public Resource exportPeople(List<PersonDTO> people) throws Exception {
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("People");
             Row headerRow = sheet.createRow(0);
@@ -48,6 +48,11 @@ public class XLSXExporter implements FileExporter {
 
             return new ByteArrayResource(outputStream.toByteArray());
         }
+    }
+
+    @Override
+    public Resource exportPerson(PersonDTO person) throws Exception {
+        return null;
     }
 
     private CellStyle createHeaderCellStyle(Workbook workbook) {

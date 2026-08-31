@@ -25,8 +25,9 @@ spring:
       max-request-size: 215MB
 logging:
   level:
-    #root: WARN
-    io.github.gabriellisartori: DEBUG
+    root: INFO
+    #net.sf.jasperreports.engine.*: TRACE
+    #io.github.gabriellisartori: DEBUG
 spring-doc:
   paths-to-match: /api/**/v1/**
   swagger-ui:
