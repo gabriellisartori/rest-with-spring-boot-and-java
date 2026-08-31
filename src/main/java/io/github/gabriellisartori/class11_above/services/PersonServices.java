@@ -2,8 +2,7 @@ package io.github.gabriellisartori.class11_above.services;
 
 import io.github.gabriellisartori.class11_above.controllers.PersonController;
 import io.github.gabriellisartori.class11_above.data.dto.PersonDTO;
-import io.github.gabriellisartori.class11_above.file.exporter.MediaTypes;
-import io.github.gabriellisartori.class11_above.file.exporter.contract.FileExporter;
+import io.github.gabriellisartori.class11_above.file.exporter.contract.PersonExporter;
 import io.github.gabriellisartori.class11_above.file.exporter.factory.FileExporterFactory;
 import io.github.gabriellisartori.class11_above.file.importer.contract.FileImporter;
 import io.github.gabriellisartori.class11_above.file.importer.factory.FileImporterFactory;
@@ -32,7 +31,6 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
@@ -78,6 +76,21 @@ public class PersonServices {
         return buildPaigedModel(pageable, people);
     }
 
+    public Resource exportPerson(Long id, String acceptHeader) {
+        logger.info("Exporting person with id {}", id);
+
+        var person = repository.findById(id)
+                .map(entity -> parseObject(entity, PersonDTO.class))
+                .orElseThrow(() -> new ResourceNotFoundException("No records found for this id"));
+
+        try {
+            PersonExporter exporter = this.exporter.getExporter(acceptHeader);
+            return exporter.exportPerson(person);
+        } catch (Exception e) {
+            throw new RuntimeException("Error during file export", e);
+        }
+    }
+
     public PersonDTO findById(Long id) {
         logger.info("Finding one Person");
 
@@ -91,7 +104,7 @@ public class PersonServices {
         return dto;
     }
 
-    public Resource exportPape(
+    public Resource exportPage(
             Pageable pageable,
             String acceptHeader
     ) {
@@ -102,9 +115,9 @@ public class PersonServices {
                 .getContent();
 
         try {
-            FileExporter exporter = this.exporter.getExporter(acceptHeader);
+            PersonExporter exporter = this.exporter.getExporter(acceptHeader);
 
-            return exporter.exportFile(people);
+            return exporter.exportPeople(people);
         } catch (Exception e) {
             throw new RuntimeException("Error during file export", e);
         }
