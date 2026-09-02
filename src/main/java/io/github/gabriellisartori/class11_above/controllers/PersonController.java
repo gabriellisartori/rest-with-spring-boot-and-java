@@ -3,7 +3,7 @@ package io.github.gabriellisartori.class11_above.controllers;
 import io.github.gabriellisartori.class11_above.controllers.docs.PersonControllerDocs;
 import io.github.gabriellisartori.class11_above.data.dto.PersonDTO;
 import io.github.gabriellisartori.class11_above.file.exporter.MediaTypes;
-import io.github.gabriellisartori.class11_above.services.PersonServices;
+import io.github.gabriellisartori.class11_above.services.PersonService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 //import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +32,7 @@ import java.util.Map;
 public class PersonController implements PersonControllerDocs {
 
     @Autowired
-    private PersonServices service;
+    private PersonService service;
 
     @GetMapping(produces = {
             MediaType.APPLICATION_JSON_VALUE,

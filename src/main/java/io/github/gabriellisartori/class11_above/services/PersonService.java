@@ -39,7 +39,7 @@ import static io.github.gabriellisartori.class11_above.mapper.ObjectMapper.parse
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
-public class PersonServices {
+public class PersonService {
 
     private Logger logger = LoggerFactory.getLogger(TestLogController.class);
 

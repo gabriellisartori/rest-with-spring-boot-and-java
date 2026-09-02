@@ -2,7 +2,7 @@ package io.github.gabriellisartori.class11_above.controllers;
 
 import io.github.gabriellisartori.class11_above.controllers.docs.FileControllerDocs;
 import io.github.gabriellisartori.class11_above.data.dto.UploadFileResponseDTO;
-import io.github.gabriellisartori.class11_above.services.FileStorageServices;
+import io.github.gabriellisartori.class11_above.services.FileStorageService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ public class FileController implements FileControllerDocs {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     @Autowired
-    private FileStorageServices service;
+    private FileStorageService service;
 
     @PostMapping("/uploadFile")
     @Override
