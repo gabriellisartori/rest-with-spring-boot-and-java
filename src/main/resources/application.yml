@@ -2,6 +2,11 @@ cors:
   originPatterns: http://localhost:8080,http://localhost:3000,https://www.teste.com
 file:
   upload-dir: /home/gabrielli/Documentos/UploadDir
+security:
+  jwt:
+    token:
+      secret-key: 53cr37
+      expired-lenght: 3600000
 email:
   subject: "Default subject"
   message: "Default message"
@@ -41,6 +46,8 @@ logging:
     #net.sf.jasperreports.engine.*: TRACE
     #io.github.gabriellisartori: DEBUG
 spring-doc:
-  paths-to-match: /api/**/v1/**
+  paths-to-match:
+    - /api/**/v1/**
+    - /auth/**
   swagger-ui:
     use-root-path: true

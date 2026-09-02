@@ -1,7 +1,6 @@
 package io.github.gabriellisartori.class11_above.services;
 
 import io.github.gabriellisartori.class11_above.config.FileStorageConfig;
-import io.github.gabriellisartori.class11_above.controllers.FileController;
 import io.github.gabriellisartori.exception.FileNotFoundException;
 import io.github.gabriellisartori.exception.FileStorageException;
 import org.slf4j.Logger;
@@ -19,14 +18,14 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 @Service
-public class FileStorageServices {
+public class FileStorageService {
 
-    private static final Logger logger = LoggerFactory.getLogger(FileStorageServices.class);
+    private static final Logger logger = LoggerFactory.getLogger(FileStorageService.class);
 
     private final Path fileStorageLocation;
 
     @Autowired
-    public FileStorageServices(FileStorageConfig fileStorageConfig) {
+    public FileStorageService(FileStorageConfig fileStorageConfig) {
         Path path = Paths.get(fileStorageConfig.getUploadDir())
                 .toAbsolutePath()
                 .toAbsolutePath()

@@ -4,7 +4,7 @@ import io.github.gabriellisartori.class11_above.data.dto.BookDTO;
 import io.github.gabriellisartori.class11_above.model.Book;
 import io.github.gabriellisartori.class11_above.repository.BookRepository;
 import io.github.gabriellisartori.exception.RequiredObjectIsNullException;
-import io.github.gabriellisartori.class11_above.services.BookServices;
+import io.github.gabriellisartori.class11_above.services.BookService;
 import io.github.gabriellisartori.unittests.mapper.mocks.MockBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,12 +30,12 @@ import static org.mockito.Mockito.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
-class BookServicesTest {
+class BookServiceTest {
 
     MockBook input;
 
     @InjectMocks
-    private BookServices services;
+    private BookService services;
 
     @Mock
     BookRepository repository;

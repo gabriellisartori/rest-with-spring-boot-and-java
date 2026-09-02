@@ -2,7 +2,7 @@ package io.github.gabriellisartori.class11_above.controllers;
 
 import io.github.gabriellisartori.class11_above.controllers.docs.BookControllerDocs;
 import io.github.gabriellisartori.class11_above.data.dto.BookDTO;
-import io.github.gabriellisartori.class11_above.services.BookServices;
+import io.github.gabriellisartori.class11_above.services.BookService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -22,7 +22,7 @@ import java.net.URI;
 public class BookController implements BookControllerDocs {
 
     @Autowired
-    private BookServices service;
+    private BookService service;
 
     @GetMapping(produces = {
             MediaType.APPLICATION_JSON_VALUE,
