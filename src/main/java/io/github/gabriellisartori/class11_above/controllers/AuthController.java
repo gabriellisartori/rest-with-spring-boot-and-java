@@ -1,10 +1,8 @@
 package io.github.gabriellisartori.class11_above.controllers;
 
 import io.github.gabriellisartori.class11_above.controllers.docs.AuthControllerDocs;
-import io.github.gabriellisartori.class11_above.data.dto.PersonDTO;
 import io.github.gabriellisartori.class11_above.data.dto.security.AccountCredentialsDTO;
 import io.github.gabriellisartori.class11_above.services.AuthService;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
 
 @Tag(name = "Authentication")
 @RestController
@@ -40,7 +36,7 @@ public class AuthController implements AuthControllerDocs {
                     .body("Invalid client request");
         }
 
-        return ResponseEntity.ok().body(token);
+        return token;
     }
 
     @PutMapping("/refresh/{username}")
@@ -60,7 +56,7 @@ public class AuthController implements AuthControllerDocs {
                     .body("Invalid client request");
         }
 
-        return ResponseEntity.ok().body(token);
+        return token;
     }
 
     @PostMapping(
