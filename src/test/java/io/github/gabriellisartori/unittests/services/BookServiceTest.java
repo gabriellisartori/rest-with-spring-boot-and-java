@@ -95,7 +95,7 @@ class BookServiceTest {
 
         BookDTO dto = input.mockDTO(1);
 
-        when(repository.save(book)).thenReturn(persisted);
+        when(repository.save(any(Book.class))).thenReturn(persisted);
 
         var result = services.create(dto);
         assertNotNull(result);
