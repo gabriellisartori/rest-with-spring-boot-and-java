@@ -38,11 +38,11 @@ jobs:
         cache: maven
 
     - name: Build Application .jar
-      working-directory: ./
+      working-directory: ./backend
       run: mvn clean package
 
     - name: Docker compose build
-      working-directory: ./
+      working-directory: ./backend
       run: docker compose build
 #
 #    - name: Tag and Push Docker Image to Amazon Container Registry - ECR
