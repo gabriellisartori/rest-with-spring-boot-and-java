@@ -1,5 +1,6 @@
 package io.github.gabriellisartori.class11_above.data.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
@@ -16,6 +17,8 @@ public class BookDTO extends RepresentationModel<BookDTO> implements Serializabl
     private String author;
     private String title;
     private Double price;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date launchDate;
 
     public BookDTO() {
